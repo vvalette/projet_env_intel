@@ -90,7 +90,7 @@ Attention, il est important que la valeur de temps soit une string. Pour cela no
 char temp[10]
 sprintf(temp, "%.2f", result.temperature); 
 ```
-Ici notre variable `result.temperature` est notre température mesurée et c'est donc un Foat. La fonction sprintf nous permet donc de la mettre dans notre variable temp qui est un tableau de charatères et donc une string.
+Ici notre variable `result.temperature` est notre température mesurée et c'est donc un Float. La fonction sprintf nous permet donc de la mettre dans notre variable temp qui est un tableau de charatères et donc une string.
 
 ##### Utilisation de l'écran du ESP32
 Afin d'utiliser l'écran de l'ESP32 nous devons ajouter la librairie `TFT_eSPI`. Tout d'abord il est important de modifier le fichier `ILI9341_Defines.h` (..PlatformIO\Projects\projet_env_intel\.pio\libdeps\ttgo-lora32-v1\TFT_eSPI\TFT_Drivers) et notamment les lignes : 
