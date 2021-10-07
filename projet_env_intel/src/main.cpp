@@ -17,11 +17,9 @@
 // Replace the next variables with your SSID/Password combination
 const char* ssid = "Valentin's Galaxy S21 5G";
 const char* password = "1234567890";
-//const char* ssid = "B127-EIC";
-//const char* password = "b127-eic";
+
 // Add your MQTT Broker IP address, example:
 const char* mqtt_server = "broker.mqttdashboard.com";
-//const char* mqtt_server = "192.168.1.105";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -44,7 +42,6 @@ void setup_wifi() {
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
   }
 }
 
@@ -220,7 +217,7 @@ void setup()
 {
   Serial.begin(9600);
   
-  // Initialise BLE scan
+  // Initialise le BLE scan (bluettoth low energie)
   BLEDevice::init("");
   pBLEScan = BLEDevice::getScan(); //create new scan
   pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
@@ -228,11 +225,11 @@ void setup()
   pBLEScan->setInterval(100);
   pBLEScan->setWindow(99); // less or equal setInterval value
 
-  // Initialise screen
+  // Initialise l'écran
   initScreen();
   delay(1000);                
 
-  // INitialise wifi
+  // Initialise le wifi
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
@@ -253,15 +250,15 @@ void loop()
     
     //Envoi de la température
     sprintf(temp, "%.2f", result.temperature); 
-    client.publish("sensor_data/temperature", temp);
+    client.publish("sensor_data/tem", temp);
 
     //Envoi de l'humidité'
     sprintf(hum, "%.2f", result.humidity); 
-    client.publish("sensor_data/humidity", hum);
+    client.publish("sensor_data/hum", hum);
 
     //Envoi de la température
     sprintf(bat, "%d", result.battery_level); 
-    client.publish("sensor_data/battery_level", bat);
+    client.publish("sensor_data/bat", bat);
 
     BLEScanResults foundDevices = pBLEScan->start(scanTime, false);
     pBLEScan->clearResults();
