@@ -67,6 +67,32 @@ Pour connaître l'IP de notre carte il nous suffit de récupérer celle ci via l
 ##### Récupération des données du capteur (utilisation du Bluetooth Low Energy [BLE])
 Afin d'utiliser le BLE il faut installer la librairie `ESP32 BLE Arduino`. Pour cela il suffit de se rendre dans la page d'accueil de PlateformeIO, puis dans l'onglet `Librairies` et rechercher notre librairies et l'ajouter au projet. De plus, un grand nombre de script d'exemple sont fournis avec toutes les libraires !
 
+Tout d'abord il faut initialiser la connexion BLE dans la fonction setup() à l'aide des lignes suivantes :
+```C++
+BLEDevice::init("");
+pBLEScan = BLEDevice::getScan(); //create new scan
+pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
+pBLEScan->setActiveScan(true);
+pBLEScan->setInterval(100);
+pBLEScan->setWindow(99); // less or equal setInterval value
+```
+
+Puis il faut créer une class `MyAdvertisedDeviceCallbacks` (cf le code) qui permet de récupérer les données une fois la connexion BLE établie. On peut retrouver cette fontion facilement dans les exemples fournit avec la librairie.
+
+Pour finir on créer une class `BLEResult` qui nous permet de "ranger" proprement nos résulstat et d'y accéder facilement par la suite:
+```C++
+class BLEResult
+{
+public:
+  double temperature = -200.0f;
+  double humidity = -1.0f;
+  int16_t battery_level = -1;
+};
+
+BLEResult result;
+```
+Il nous reste plus qu'à récupérer une des données (l'humidité par exemple) avec le code suivant : `resultat.humidity`
+
 ##### Envoi des données vers un server MQTT (Publication sur un Topic)
 Afin d'utiliser l'écran de l'ESP32 nous devons ajouter la librairie `PubSubClient`.
 Tout d'abord il faut initiliser l'adresse IP ou le nom de domaine de notre server MQTT :
@@ -236,5 +262,6 @@ Grâce à cela nous avons bien notre servo moteur qui réagit en fonction de la 
 
 ### Vidéo
 
-Vous pouvez retrouver une vidéo de démo de notre projet via le lien suivant : link_vidéo_youtube
+Vous pouvez retrouver une vidéo de démo de notre projet via le lien suivant : https://www.youtube.com/watch?v=gv1G64o1bH0&ab_channel=AykelCheniour
+
 
