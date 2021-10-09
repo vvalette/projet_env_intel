@@ -3,16 +3,16 @@
 
 ### les objectifs du projet
 
-Le l'objectif du pojet consiste à maquetter un système domotique. 
+L'objectif du pojet consiste à maquetter un système domotique. 
 Celui-ci doit contenir au minimum un routeur Wi-fi (réseau local de la maison),
-un capteur de température/humidité (Xiami), une carte ESP32, une carte STM32 et un cerveau moteur.
+un capteur de température/humidité (Xiami), une carte ESP32, une carte STM32 et un servo moteur.
 La carte ESP32 doit récupérer les données du capteur de température/humidité via Wi-fi puis les transmettre sur un serveur MQTT.
-La carte STM32 doit ensuite récupérer ces données via Ethernet et agir en conséquence sur la commande du cerveau moteur qui simule l'ouverture ou la fermeture du volet de ventilation.
+La carte STM32 doit ensuite récupérer ces données via Ethernet et agir en conséquence sur la commande du servo moteur qui simule l'ouverture ou la fermeture du volet de ventilation.
 
 ### Réalisation du projet
 
 La totalité des éléments imposés est présente et fonctionnelle dans notre projet. 
-De plus, nous avons aussi ajouté l'utilisation de l'ESP32 avec l'affichage d'un message au démarage de celui-ci ainsi que l'affichage d la température, l'humidité et le pourcentage de batterie du capteur.
+De plus, nous avons aussi ajouté l'utilisation de l'ESP32 avec l'affichage d'un message au démarage de celui-ci ainsi que l'affichage de la température, l'humidité et le pourcentage de batterie du capteur.
 
 #### La carte ESP32
 ##### Pré-requis
@@ -77,7 +77,7 @@ pBLEScan->setInterval(100);
 pBLEScan->setWindow(99); // less or equal setInterval value
 ```
 
-Puis il faut créer une class `MyAdvertisedDeviceCallbacks` (cf le code) qui permet de récupérer les données une fois la connexion BLE établie. On peut retrouver cette fontion facilement dans les exemples fournit avec la librairie.
+Puis il faut créer une class `MyAdvertisedDeviceCallbacks` (cf le code) qui permet de récupérer les données une fois la connexion BLE établie. On peut retrouver cette fontion facilement dans les exemples fournis avec la librairie.
 
 Pour finir on créer une class `BLEResult` qui nous permet de "ranger" proprement nos résulstat et d'y accéder facilement par la suite:
 ```C++
@@ -124,7 +124,7 @@ Afin d'utiliser l'écran de l'ESP32 nous devons ajouter la librairie `TFT_eSPI`.
 #define TFT_WIDTH  135
 #define TFT_HEIGHT 240
 ```
-Cette modification permet de paramétrer la dimension de l'écran. En effet, avec la onfiguration de base l'écran est mal configuré et on a une zone non utilisable.
+Cette modification permet de paramétrer la dimension de l'écran. En effet, avec la configuration de base l'écran est mal configuré et on a une zone non utilisable.
 
 Puis, il est nécessaire de modifier le fichier `User_Setup_Select.h` (PlatformIO\Projects\projet_env_intel\.pio\libdeps\ttgo-lora32-v1\TFT_eSPI). Ainsi, il faut décommenter la ligne 53 :
 ```C++ 
